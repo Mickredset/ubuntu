@@ -1,1 +1,35 @@
-Nothing needs to be added to .gitignore since the changes only include source files (.jsx, .css) and no build artifacts, dependencies, or temporary files.
+```
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.js
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary files
+*.tmp
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+```
