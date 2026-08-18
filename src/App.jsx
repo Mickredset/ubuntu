@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import TopBar from './components/TopBar'
 import Desktop from './components/Desktop'
 import Dock from './components/Dock'
 import Window from './components/Window'
+import LoginScreen from './components/LoginScreen'
 import TerminalApp from './components/apps/TerminalApp'
 import FilesApp from './components/apps/FilesApp'
 import BrowserApp from './components/apps/BrowserApp'
 import SettingsApp from './components/apps/SettingsApp'
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState(null)
   const [windows, setWindows] = useState([])
   const [activeWindowId, setActiveWindowId] = useState(null)
   const [windowIdCounter, setWindowIdCounter] = useState(0)
@@ -18,6 +21,15 @@ const App = () => {
     files: { id: 'files', name: 'Files', icon: '📁', component: FilesApp },
     browser: { id: 'browser', name: 'Firefox', icon: '🦊', component: BrowserApp },
     settings: { id: 'settings', name: 'Settings', icon: '⚙️', component: SettingsApp }
+  }
+
+  const handleLogin = (userData) => {
+    setUser(userData)
+    setIsLoggedIn(true)
+  }
+
+  if (!isLoggedIn) {
+    return <LoginScreen onLogin={handleLogin} />
   }
 
   const openApp = (appId) => {
@@ -92,7 +104,7 @@ const App = () => {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
-      <TopBar />
+      <TopBar user={user} />
       
       <Desktop onOpenApp={openApp} />
       
