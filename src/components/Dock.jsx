@@ -40,14 +40,15 @@ const Dock = ({ apps, windows, onAppClick }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '28px',
               cursor: 'pointer',
               background: hoveredApp === appId ? 'rgba(255,255,255,0.2)' : 'transparent',
               transition: 'all 0.2s',
               transform: hoveredApp === appId ? 'scale(1.1)' : 'scale(1)'
             }}
           >
-            {app.icon}
+            <div style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {app.icon}
+            </div>
             {isOpen && (
               <div style={{
                 position: 'absolute',

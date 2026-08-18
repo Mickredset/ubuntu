@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Home, FileText, Download, Music, Image, Video, FolderOpen, FileType } from 'lucide-react'
 
 const FilesApp = () => {
   const [currentPath, setCurrentPath] = useState('home')
@@ -44,12 +45,12 @@ const FilesApp = () => {
   const items = currentDir.children || {}
 
   const sidebarItems = [
-    { icon: '🏠', name: 'Home', path: 'home' },
-    { icon: '📄', name: 'Documents', path: 'home/Documents' },
-    { icon: '⬇️', name: 'Downloads', path: 'home/Downloads' },
-    { icon: '🎵', name: 'Music', path: 'home/Music' },
-    { icon: '🖼️', name: 'Pictures', path: 'home/Pictures' },
-    { icon: '🎬', name: 'Videos', path: 'home/Videos' }
+    { icon: <Home size={16} />, name: 'Home', path: 'home' },
+    { icon: <FileText size={16} />, name: 'Documents', path: 'home/Documents' },
+    { icon: <Download size={16} />, name: 'Downloads', path: 'home/Downloads' },
+    { icon: <Music size={16} />, name: 'Music', path: 'home/Music' },
+    { icon: <Image size={16} />, name: 'Pictures', path: 'home/Pictures' },
+    { icon: <Video size={16} />, name: 'Videos', path: 'home/Videos' }
   ]
 
   return (
@@ -76,7 +77,7 @@ const FilesApp = () => {
               color: currentPath === item.path ? 'white' : '#333'
             }}
           >
-            <span>{item.icon}</span>
+            <span style={{ display: 'flex', alignItems: 'center' }}>{item.icon}</span>
             <span style={{ fontSize: '13px' }}>{item.name}</span>
           </div>
         ))}
@@ -140,8 +141,8 @@ const FilesApp = () => {
               onMouseEnter={(e) => e.currentTarget.style.background = '#f0f0f0'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
             >
-              <div style={{ fontSize: '48px', marginBottom: '8px' }}>
-                {item.type === 'dir' ? '📁' : '📄'}
+              <div style={{ fontSize: '48px', marginBottom: '8px', display: 'flex', justifyContent: 'center' }}>
+                {item.type === 'dir' ? <FolderOpen size={48} /> : <FileType size={48} />}
               </div>
               <div style={{ 
                 fontSize: '12px', 

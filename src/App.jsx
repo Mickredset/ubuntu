@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Terminal, Folder, Globe, Settings as SettingsIcon } from 'lucide-react'
 import TopBar from './components/TopBar'
 import Desktop from './components/Desktop'
 import Dock from './components/Dock'
@@ -17,10 +18,10 @@ const App = () => {
   const [windowIdCounter, setWindowIdCounter] = useState(0)
 
   const apps = {
-    terminal: { id: 'terminal', name: 'Terminal', icon: '🖥️', component: TerminalApp },
-    files: { id: 'files', name: 'Files', icon: '📁', component: FilesApp },
-    browser: { id: 'browser', name: 'Firefox', icon: '🦊', component: BrowserApp },
-    settings: { id: 'settings', name: 'Settings', icon: '⚙️', component: SettingsApp }
+    terminal: { id: 'terminal', name: 'Terminal', icon: <Terminal size={28} />, component: TerminalApp },
+    files: { id: 'files', name: 'Files', icon: <Folder size={28} />, component: FilesApp },
+    browser: { id: 'browser', name: 'Firefox', icon: <Globe size={28} />, component: BrowserApp },
+    settings: { id: 'settings', name: 'Settings', icon: <SettingsIcon size={28} />, component: SettingsApp }
   }
 
   const handleLogin = (userData) => {

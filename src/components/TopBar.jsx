@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Volume2, Wifi, Battery, Power, LogOut, Lock, Settings, User } from 'lucide-react'
 
 const TopBar = ({ user }) => {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -25,13 +26,22 @@ const TopBar = ({ user }) => {
     })
   }
 
-  const handlePowerClick = () => {
+  const handlePowerClick = (e) => {
+    e.stopPropagation()
     setShowMenu(!showMenu)
   }
 
   const handleLogout = () => {
     window.location.reload()
   }
+
+  React.useEffect(() => {
+    const handleClickOutside = () => {
+      if (showMenu) setShowMenu(false)
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [showMenu])
 
   return (
     <div style={{
@@ -80,9 +90,15 @@ const TopBar = ({ user }) => {
       </div>
       
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', position: 'relative' }}>
-        <span style={{ cursor: 'pointer' }}>🔊</span>
-        <span style={{ cursor: 'pointer' }}>📶</span>
-        <span style={{ cursor: 'pointer' }}>🔋</span>
+        <span style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+          <Volume2 size={16} />
+        </span>
+        <span style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+          <Wifi size={16} />
+        </span>
+        <span style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+          <Battery size={16} />
+        </span>
         <div style={{ textAlign: 'center', minWidth: '100px', cursor: 'default' }}>
           <div>{formatTime(currentTime)}</div>
           <div style={{ fontSize: '11px', opacity: 0.8 }}>{formatDate(currentTime)}</div>
@@ -94,16 +110,18 @@ const TopBar = ({ user }) => {
               cursor: 'pointer',
               padding: '4px 8px',
               borderRadius: '4px',
-              transition: 'background 0.2s'
+              transition: 'background 0.2s',
+              display: 'flex',
+              alignItems: 'center'
             }}
             onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
             onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
           >
-            ⏻
+            <Power size={16} />
           </span>
           
           {showMenu && (
-            <div style={{
+            <div onClick={(e) => e.stopPropagation()} style={{
               position: 'absolute',
               top: '100%',
               right: 0,
@@ -120,9 +138,12 @@ const TopBar = ({ user }) => {
                   padding: '8px 16px',
                   borderBottom: '1px solid rgba(255,255,255,0.1)',
                   fontSize: '12px',
-                  opacity: 0.8
+                  opacity: 0.8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}>
-                  👤 {user.username}
+                  <User size={14} /> {user.username}
                 </div>
               )}
               <div 
@@ -138,7 +159,7 @@ const TopBar = ({ user }) => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(233, 84, 32, 0.3)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
-                🚪 Log Out
+                <LogOut size={16} /> Log Out
               </div>
               <div 
                 style={{
@@ -152,7 +173,7 @@ const TopBar = ({ user }) => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(233, 84, 32, 0.3)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
-                🔒 Lock
+                <Lock size={16} /> Lock
               </div>
               <div 
                 style={{
@@ -166,7 +187,7 @@ const TopBar = ({ user }) => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(233, 84, 32, 0.3)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
-                ⚙️ Settings
+                <Settings size={16} /> Settings
               </div>
               <div 
                 style={{
@@ -182,7 +203,7 @@ const TopBar = ({ user }) => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(233, 84, 32, 0.3)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
-                ⏻ Power Off / Log Out
+                <Power size={16} /> Power Off / Log Out
               </div>
             </div>
           )}
