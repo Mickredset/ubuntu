@@ -88,7 +88,7 @@ const Window = ({
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
-        zIndex: isActive ? 100 : 50,
+        zIndex: isActive ? 1000 : 900,
         border: isActive ? '1px solid #E95420' : '1px solid rgba(0,0,0,0.1)'
       }}
     >

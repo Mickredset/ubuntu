@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Home, Trash2 } from 'lucide-react'
 
 const Desktop = ({ onOpenApp }) => {
   const desktopIcons = [
-    { id: 'home', name: 'Home', icon: '🏠' },
-    { id: 'trash', name: 'Trash', icon: '🗑️' }
+    { id: 'home', name: 'Home', icon: <Home size={40} /> },
+    { id: 'trash', name: 'Trash', icon: <Trash2 size={40} /> }
   ]
 
   return (
@@ -36,7 +37,9 @@ const Desktop = ({ onOpenApp }) => {
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
         >
-          <div style={{ fontSize: '40px', marginBottom: '4px' }}>{item.icon}</div>
+          <div style={{ fontSize: '40px', marginBottom: '4px', display: 'flex', justifyContent: 'center' }}>
+            {item.icon}
+          </div>
           <div style={{ fontSize: '12px', fontWeight: 500 }}>{item.name}</div>
         </div>
       ))}
