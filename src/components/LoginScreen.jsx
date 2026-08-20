@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-const LoginScreen = ({ onLogin }) => {
+const LoginScreen = ({ onLogin, isLocked, user }) => {
   const [username, setUsername] = useState('user')
   const [password, setPassword] = useState('')
   const [isLoggingIn, setIsLoggingIn] = useState(false)
@@ -31,7 +31,7 @@ const LoginScreen = ({ onLogin }) => {
         <div className="login-avatar">
           <span>👤</span>
         </div>
-        <h2 className="login-username-display">{username}</h2>
+        <h2 className="login-username-display">{isLocked && user ? user.username : username}</h2>
         
         <form onSubmit={handleLogin} className="login-form">
           <div className="password-input-wrapper">
@@ -52,15 +52,17 @@ const LoginScreen = ({ onLogin }) => {
             {isLoggingIn ? (
               <span className="loading-spinner"></span>
             ) : (
-              'Sign In'
+              'Unlock'
             )}
           </button>
         </form>
         
-        <div className="login-options">
-          <button className="option-btn">Not listed?</button>
-          <button className="option-btn" onClick={handleGuestSession}>Guest Session</button>
-        </div>
+        {!isLocked && (
+          <div className="login-options">
+            <button className="option-btn">Not listed?</button>
+            <button className="option-btn" onClick={handleGuestSession}>Guest Session</button>
+          </div>
+        )}
       </div>
       
       <div className="login-footer">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Volume2, Wifi, Battery, Power, LogOut, Lock, Settings, User } from 'lucide-react'
 
-const TopBar = ({ user }) => {
+const TopBar = ({ user, onLogout, onLock, onSettings, onPowerOff }) => {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [showMenu, setShowMenu] = useState(false)
   
@@ -32,23 +32,23 @@ const TopBar = ({ user }) => {
   }
 
   const handleLogout = () => {
-    window.location.reload()
+    setShowMenu(false)
+    if (onLogout) onLogout()
   }
 
   const handleLock = () => {
-    if (window.confirm('Lock the screen?')) {
-      window.location.reload()
-    }
+    setShowMenu(false)
+    if (onLock) onLock()
   }
 
   const handleSettings = () => {
-    alert('Settings will be implemented soon!')
+    setShowMenu(false)
+    if (onSettings) onSettings()
   }
 
   const handlePowerOff = () => {
-    if (window.confirm('Power off the system?')) {
-      window.location.reload()
-    }
+    setShowMenu(false)
+    if (onPowerOff) onPowerOff()
   }
 
   React.useEffect(() => {
