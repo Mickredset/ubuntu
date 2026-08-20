@@ -16,6 +16,7 @@ const App = () => {
   const [windows, setWindows] = useState([])
   const [activeWindowId, setActiveWindowId] = useState(null)
   const [windowIdCounter, setWindowIdCounter] = useState(0)
+  const [isLocked, setIsLocked] = useState(false)
 
   const apps = {
     terminal: { id: 'terminal', name: 'Terminal', icon: <Terminal size={28} />, component: TerminalApp },
@@ -29,8 +30,39 @@ const App = () => {
     setIsLoggedIn(true)
   }
 
-  if (!isLoggedIn) {
-    return <LoginScreen onLogin={handleLogin} />
+  const handleLogout = () => {
+    setUser(null)
+    setIsLoggedIn(false)
+    setWindows([])
+    setIsLocked(false)
+  }
+
+  const handleLock = () => {
+    setIsLocked(true)
+  }
+
+  const handleUnlock = (userData) => {
+    if (userData) {
+      setUser(userData)
+    }
+    setIsLocked(false)
+  }
+
+  const handlePowerOff = () => {
+    if (window.confirm('Power off the system?')) {
+      setUser(null)
+      setIsLoggedIn(false)
+      setWindows([])
+      setIsLocked(false)
+    }
+  }
+
+  const handleSettings = () => {
+    openApp('settings')
+  }
+
+  if (!isLoggedIn || isLocked) {
+    return <LoginScreen onLogin={isLocked ? handleUnlock : handleLogin} isLocked={isLocked} user={user} />
   }
 
   const openApp = (appId) => {
@@ -105,7 +137,13 @@ const App = () => {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
-      <TopBar user={user} />
+      <TopBar 
+        user={user} 
+        onLogout={handleLogout}
+        onLock={handleLock}
+        onSettings={handleSettings}
+        onPowerOff={handlePowerOff}
+      />
       
       <Desktop onOpenApp={openApp} />
       

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Volume2, Wifi, Battery, Power, LogOut, Lock, Settings, User } from 'lucide-react'
 
-const TopBar = ({ user }) => {
+const TopBar = ({ user, onLogout, onLock, onSettings, onPowerOff }) => {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [showMenu, setShowMenu] = useState(false)
   
@@ -32,7 +32,23 @@ const TopBar = ({ user }) => {
   }
 
   const handleLogout = () => {
-    window.location.reload()
+    setShowMenu(false)
+    if (onLogout) onLogout()
+  }
+
+  const handleLock = () => {
+    setShowMenu(false)
+    if (onLock) onLock()
+  }
+
+  const handleSettings = () => {
+    setShowMenu(false)
+    if (onSettings) onSettings()
+  }
+
+  const handlePowerOff = () => {
+    setShowMenu(false)
+    if (onPowerOff) onPowerOff()
   }
 
   React.useEffect(() => {
@@ -164,6 +180,7 @@ const TopBar = ({ user }) => {
                 <LogOut size={16} /> Log Out
               </div>
               <div 
+                onClick={handleLock}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
@@ -178,6 +195,7 @@ const TopBar = ({ user }) => {
                 <Lock size={16} /> Lock
               </div>
               <div 
+                onClick={handleSettings}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
@@ -192,6 +210,7 @@ const TopBar = ({ user }) => {
                 <Settings size={16} /> Settings
               </div>
               <div 
+                onClick={handlePowerOff}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
