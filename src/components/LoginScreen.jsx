@@ -9,10 +9,19 @@ const LoginScreen = ({ onLogin }) => {
   const handleLogin = (e) => {
     e.preventDefault()
     setIsLoggingIn(true)
-    // Имитация процесса входа
     setTimeout(() => {
       onLogin({ username })
     }, 1500)
+  }
+
+  const handleGuestSession = () => {
+    onLogin({ username: 'Guest' })
+  }
+
+  const handlePowerOff = () => {
+    if (window.confirm('Power off the system?')) {
+      window.location.reload()
+    }
   }
 
   return (
@@ -50,7 +59,7 @@ const LoginScreen = ({ onLogin }) => {
         
         <div className="login-options">
           <button className="option-btn">Not listed?</button>
-          <button className="option-btn">Guest Session</button>
+          <button className="option-btn" onClick={handleGuestSession}>Guest Session</button>
         </div>
       </div>
       
@@ -58,7 +67,7 @@ const LoginScreen = ({ onLogin }) => {
         <div className="system-controls">
           <button className="control-btn">♿</button>
           <button className="control-btn">📧</button>
-          <button className="control-btn">⏻</button>
+          <button className="control-btn" onClick={handlePowerOff}>⏻</button>
         </div>
         <div className="ubuntu-logo-login">
           <span>🔵</span> Ubuntu

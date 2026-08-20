@@ -35,6 +35,22 @@ const TopBar = ({ user }) => {
     window.location.reload()
   }
 
+  const handleLock = () => {
+    if (window.confirm('Lock the screen?')) {
+      window.location.reload()
+    }
+  }
+
+  const handleSettings = () => {
+    alert('Settings will be implemented soon!')
+  }
+
+  const handlePowerOff = () => {
+    if (window.confirm('Power off the system?')) {
+      window.location.reload()
+    }
+  }
+
   React.useEffect(() => {
     const handleClickOutside = (e) => {
       if (showMenu && !e.target.closest('[data-topbar-menu]')) {
@@ -164,6 +180,7 @@ const TopBar = ({ user }) => {
                 <LogOut size={16} /> Log Out
               </div>
               <div 
+                onClick={handleLock}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
@@ -178,6 +195,7 @@ const TopBar = ({ user }) => {
                 <Lock size={16} /> Lock
               </div>
               <div 
+                onClick={handleSettings}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
@@ -192,6 +210,7 @@ const TopBar = ({ user }) => {
                 <Settings size={16} /> Settings
               </div>
               <div 
+                onClick={handlePowerOff}
                 style={{
                   padding: '10px 16px',
                   cursor: 'pointer',
